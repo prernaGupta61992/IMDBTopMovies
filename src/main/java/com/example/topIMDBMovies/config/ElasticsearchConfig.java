@@ -13,12 +13,7 @@ import org.springframework.context.annotation.Primary;
 @Primary
 public class ElasticsearchConfig {
 	
-	
-	
     private RestHighLevelClient restHighLevelClient;
-    
-    
-    
     
     @Bean(destroyMethod = "close")
     public RestHighLevelClient client() {

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.topIMDBMovies.document.Customer;
+import com.example.topIMDBMovies.utils.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -27,7 +28,7 @@ public class IndexService {
 	
 	private RestHighLevelClient client;
 	
-	 private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 	 
 	@Autowired
 	public IndexService(RestHighLevelClient client, ObjectMapper objectMapper) {
@@ -35,32 +36,10 @@ public class IndexService {
 	    this.objectMapper = objectMapper;
 	}
 	
-	public Boolean createIndex() throws IOException {
-		CreateIndexRequest request = new CreateIndexRequest("movie");
-		request.settings(Settings.builder()
-		        .put("index.number_of_shards", 1)
-		        .put("index.number_of_replicas", 2)
-		);
-//		request.mapping(
-//		        "{\n" +
-//		        "  \"properties\": {\n" +
-//		        "    \"message\": {\n" +
-//		        "      \"type\": \"text\"\n" +
-//		        "    }\n" +
-//		        "  }\n" +
-//		        "}", 
-//		        XContentType.JSON);
-		CreateIndexResponse indexResponse = client.indices().create(request, RequestOptions.DEFAULT);
-		System.out.println("response id: "+indexResponse.index());
-		return indexResponse.isAcknowledged();
-	}
-	
-	
-	public String createProfileDocument(Customer document) throws Exception {
-		System.out.println("document value is"+document.toString());
-        Map<String, Object> documentMapper = objectMapper.convertValue(document, Map.class);
+	public String createMovieDocuments(Customer document) throws Exception {
+		Map<String, Object> documentMapper = objectMapper.convertValue(document, Map.class);
 
-        IndexRequest indexRequest = new IndexRequest("customer")
+        IndexRequest indexRequest = new IndexRequest(Constants.INDEX)
                 .source(documentMapper);
 
         IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);

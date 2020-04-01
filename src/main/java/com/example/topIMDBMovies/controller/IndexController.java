@@ -26,18 +26,12 @@ public class IndexController {
 		this.service = service;
 	}
 	
-	@GetMapping("/movieIndex")
-    public boolean createMovieIndex() throws Exception {
-
-        return service.createIndex();
-    }
-	
-	@PostMapping("/customer")
-    public ResponseEntity createProfile(
+	@PostMapping("/movie")
+    public ResponseEntity createMovieDocuments(
         @RequestBody Customer document) throws Exception {
 
         return 
-            new ResponseEntity(service.createProfileDocument(document), HttpStatus.CREATED);
+            new ResponseEntity(service.createMovieDocuments(document), HttpStatus.CREATED);
     }
 	 
 
