@@ -1,24 +1,13 @@
 package com.imdbmovies.service;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
-import org.elasticsearch.common.xcontent.XContentType;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.imdbmovies.adaptor.FloatTypeAdapter;
 import com.imdbmovies.adaptor.IntTypeAdapter;
-import com.imdbmovies.document.Customer;
 import com.imdbmovies.document.Movie;
 import com.imdbmovies.utils.Constants;
 
@@ -51,7 +39,7 @@ public class IndexService {
 	    this.objectMapper = objectMapper;
 	}
 	
-	public String createMovieDocuments(Customer document) throws Exception {
+	public String createMovieDocuments(Movie document) throws Exception {
 		Map<String, Object> documentMapper = objectMapper.convertValue(document, Map.class);
 
         IndexRequest indexRequest = new IndexRequest(Constants.INDEX)
