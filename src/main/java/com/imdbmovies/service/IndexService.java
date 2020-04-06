@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.imdbmovies.adaptor.FloatTypeAdapter;
 import com.imdbmovies.adaptor.IntTypeAdapter;
-import com.imdbmovies.document.Movie;
+import com.imdbmovies.document.MovieDocument;
 import com.imdbmovies.utils.Constants;
 
 @Service
@@ -39,7 +39,7 @@ public class IndexService {
 	    this.objectMapper = objectMapper;
 	}
 	
-	public String createMovieDocuments(Movie document) throws Exception {
+	public String createMovieDocuments(MovieDocument document) throws Exception {
 		Map<String, Object> documentMapper = objectMapper.convertValue(document, Map.class);
 
         IndexRequest indexRequest = new IndexRequest(Constants.INDEX)
@@ -74,7 +74,7 @@ public class IndexService {
 			    .registerTypeAdapter(Float.class, new FloatTypeAdapter())
 			    .registerTypeAdapter(float.class, new FloatTypeAdapter())
 			    .create();
-		Movie movie = gson.fromJson(movieObject.toJSONString(), Movie.class);
+		MovieDocument movie = gson.fromJson(movieObject.toJSONString(), MovieDocument.class);
         
         Map<String, Object> documentMapper = objectMapper.convertValue(movie, Map.class);
 

@@ -3,7 +3,7 @@ package com.imdbmovies.document;
 import lombok.Data;
 
 @Data
-public class Movie {
+public class MovieDocument {
 	
 	private String color;
 	private String director_name;
