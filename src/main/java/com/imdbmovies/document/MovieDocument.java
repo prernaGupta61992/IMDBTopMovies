@@ -33,6 +33,16 @@ public class MovieDocument {
 	private float imdb_score;
 	private float aspect_ratio;
 	private int movie_facebook_likes;
+	private String highlightedString;
+	
+	
+	public String getHighlightedString() {
+		return highlightedString;
+	}
+	public void setHighlightedString(String highlightedString) {
+		this.highlightedString = highlightedString;
+	}
+	
 	public String getColor() {
 		return color;
 	}

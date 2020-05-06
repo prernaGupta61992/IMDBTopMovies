@@ -4,7 +4,34 @@ public class SearchRequestParams {
 	
 	private String sortBy;
 	private String sortOrder;
+	private String query;
 	private int size;
+	private boolean search;
+	private String searchType;
+	
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public boolean isSearch() {
+		return search;
+	}
+
+	public void setSearch(boolean search) {
+		this.search = search;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
 
 	public String getSortOrder() {
 		return sortOrder;
@@ -29,7 +56,4 @@ public class SearchRequestParams {
 	public void setSortBy(String sortBy) {
 		this.sortBy = sortBy;
 	}
-	
-	
-
 }
