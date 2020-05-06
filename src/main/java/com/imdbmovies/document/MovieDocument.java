@@ -3,7 +3,7 @@ package com.imdbmovies.document;
 import lombok.Data;
 
 @Data
-public class Movie {
+public class MovieDocument {
 	
 	private String color;
 	private String director_name;
@@ -33,6 +33,16 @@ public class Movie {
 	private float imdb_score;
 	private float aspect_ratio;
 	private int movie_facebook_likes;
+	private String highlightedString;
+	
+	
+	public String getHighlightedString() {
+		return highlightedString;
+	}
+	public void setHighlightedString(String highlightedString) {
+		this.highlightedString = highlightedString;
+	}
+	
 	public String getColor() {
 		return color;
 	}

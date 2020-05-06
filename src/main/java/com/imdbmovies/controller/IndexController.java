@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.imdbmovies.document.Movie;
+import com.imdbmovies.document.MovieDocument;
 import com.imdbmovies.service.IndexService;
 
 
@@ -25,7 +25,7 @@ public class IndexController {
 	
 	@PostMapping("/movie")
     public ResponseEntity createMovieDocument(
-        @RequestBody Movie document) throws Exception {
+        @RequestBody MovieDocument document) throws Exception {
 
         return 
             new ResponseEntity(service.createMovieDocuments(document), HttpStatus.CREATED);
