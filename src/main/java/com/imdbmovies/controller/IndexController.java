@@ -10,33 +10,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.imdbmovies.document.MovieDocument;
 import com.imdbmovies.service.IndexService;
 
-
-
 @Controller
 public class IndexController {
+	private final IndexService indexService;
 
-	private IndexService service;
-	
-	@Autowired
 	public IndexController(IndexService service) {
-		this.service = service;
+		this.indexService = service;
 	}
 	
 	@PostMapping("/movie")
     public ResponseEntity createMovieDocument(
         @RequestBody MovieDocument document) throws Exception {
-
-        return 
-            new ResponseEntity(service.createMovieDocuments(document), HttpStatus.CREATED);
-    }
+		ResponseEntity responseEntity = new ResponseEntity(indexService.createMovieDocuments(document), HttpStatus.CREATED);
+		return responseEntity;
+	}
 	
 	
 	@PostMapping("/movieBulk")
     public ResponseEntity createBulkMovieDocuments() throws Exception {
-
-        return 
-            new ResponseEntity(service.createBulkMovieDocuments(), HttpStatus.CREATED);
-    }
+		ResponseEntity responseEntity = new ResponseEntity(indexService.createBulkMovieDocuments(), HttpStatus.CREATED);
+		return responseEntity;
+	}
 	 
 
 }

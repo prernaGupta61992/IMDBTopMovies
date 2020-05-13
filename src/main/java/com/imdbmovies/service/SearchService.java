@@ -19,7 +19,6 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,19 +28,14 @@ import java.util.Map;
 
 @Service
 public class SearchService {
-	
-
 	private RestHighLevelClient client;
-	
 	private ObjectMapper objectMapper;
-	
-	@Autowired
+
 	public SearchService(RestHighLevelClient client, ObjectMapper objectMapper) {
 	    this.client = client;
 	    this.objectMapper = objectMapper;
 	}
-	
-	
+
 	public List<MovieDocument> fetchMovieDocuments(SearchRequestParams params) throws IOException {
 		SearchRequest searchRequest = new SearchRequest(Constants.INDEX);
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -53,44 +47,29 @@ public class SearchService {
 		SearchResponse searchResponse =
                 client.search(searchRequest, RequestOptions.DEFAULT);
 		
-		return getSerachResults(searchResponse, false);
+		return getSearchResults(searchResponse, false);
 	}
-	
-	
-	
+
 	public List<MovieDocument> fetchAutoCompletedMovies(SearchRequestParams params) throws IOException {
 		SearchRequest searchRequest = new SearchRequest(Constants.INDEX);
 		
 		SearchSourceBuilder searchSourceBuilder = constructQuery(new SearchSourceBuilder(), params);
 		searchRequest.source(searchSourceBuilder);
-		
-		
-		
 		SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-		
-		
-		return getSerachResults(searchResponse, params.isSearch());
+		return getSearchResults(searchResponse, params.isSearch());
 	}
-	
-	
+
 	public List<MovieDocument> fetchGenreMovie(SearchRequestParams params) throws IOException {
 		SearchRequest searchRequest = new SearchRequest(Constants.INDEX);
 		
 		SearchSourceBuilder searchSourceBuilder = constructQuery(new SearchSourceBuilder(), params);
 		searchRequest.source(searchSourceBuilder);
-		
-		
-		
 		SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-		
-		
-		return getSerachResults(searchResponse, params.isSearch());
+		return getSearchResults(searchResponse, params.isSearch());
 	}
 	
 	private SearchSourceBuilder constructQuery(SearchSourceBuilder searchSourceBuilder,SearchRequestParams params ) {
 		/* create match phrse query */
-		
-	
 		if(params.isSearch()) {
 			BoolQueryBuilder boolQuery = new BoolQueryBuilder();
 			
@@ -100,9 +79,6 @@ public class SearchService {
 			HighlightBuilder highlightBuilder = new HighlightBuilder(); 
 			HighlightBuilder.Field highlightMovieTitle = new HighlightBuilder.Field("movie_title.autocomplete");
 			highlightBuilder.field(highlightMovieTitle);
-			
-			
-			
 			searchSourceBuilder.query(matchQuery);
 			searchSourceBuilder.highlighter(highlightBuilder);
 		} else if(params.getSearchType().equals("movie")){
@@ -115,8 +91,7 @@ public class SearchService {
 		
 		return searchSourceBuilder;
 	}
-	
-	
+
 	private SearchSourceBuilder filterResponseFeilds(SearchSourceBuilder searchSourceBuilder) {
 		String[] includeFields = new String[] {"director_name", "genres", "movie_title",
 				"actor_1_name", "actor_2_name", "actor_3_name","num_voted_users", "language", "title_year", "imdb_score"};
@@ -124,7 +99,7 @@ public class SearchService {
 		return searchSourceBuilder;
 	}
 	
-	private List<MovieDocument> getSerachResults(SearchResponse searchResponse, final Boolean isSearch) {
+	private List<MovieDocument> getSearchResults(SearchResponse searchResponse, final Boolean isSearch) {
 		SearchHit[] searchHits = searchResponse.getHits().getHits();
 		List<MovieDocument> movieDocuments = new ArrayList<MovieDocument>();
 		for(SearchHit hit : searchHits) {
@@ -140,7 +115,5 @@ public class SearchService {
 		
 		return movieDocuments;
 	}
-	
-	
 
 }

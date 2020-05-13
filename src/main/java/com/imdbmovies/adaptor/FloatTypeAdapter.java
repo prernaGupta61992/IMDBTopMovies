@@ -9,7 +9,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class FloatTypeAdapter extends TypeAdapter<Number>{
-	
 	@Override
     public Number read(JsonReader in) throws IOException {
         if (in.peek() == JsonToken.NULL) {
@@ -43,5 +42,4 @@ public class FloatTypeAdapter extends TypeAdapter<Number>{
 		 out.value(value);
 		
 	}
-
 }

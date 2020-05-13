@@ -1,8 +1,6 @@
 package com.imdbmovies.request;
 
-
 public class AggregationRequestParams {
-	
 	private String aggField;
 	private String aggName;
 	

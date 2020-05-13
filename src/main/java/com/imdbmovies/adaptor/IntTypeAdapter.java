@@ -9,7 +9,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class IntTypeAdapter extends TypeAdapter<Number>{
-	
 	@Override
     public Number read(JsonReader in) throws IOException {
         if (in.peek() == JsonToken.NULL) {

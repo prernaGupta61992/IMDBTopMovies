@@ -17,11 +17,8 @@ import com.imdbmovies.service.SearchService;
 
 @Controller
 public class SearchController {
-	
-	
-	private SearchService searchService;
-	
-	@Autowired
+	private final SearchService searchService;
+
 	public SearchController(SearchService service) {
 		this.searchService = service;
 	}
@@ -29,7 +26,7 @@ public class SearchController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/movie/search")
 	public ResponseEntity searchDocuments(@RequestBody SearchRequestParams document) throws IOException {
-		return 
-	            new ResponseEntity(searchService.fetchAutoCompletedMovies(document), HttpStatus.OK);
+		ResponseEntity responseEntity = new ResponseEntity(searchService.fetchAutoCompletedMovies(document), HttpStatus.OK);
+		return responseEntity;
 	}
 }

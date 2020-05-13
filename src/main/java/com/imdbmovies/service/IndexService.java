@@ -7,19 +7,22 @@ import com.imdbmovies.adaptor.FloatTypeAdapter;
 import com.imdbmovies.adaptor.IntTypeAdapter;
 import com.imdbmovies.document.MovieDocument;
 import com.imdbmovies.utils.Constants;
+import org.elasticsearch.action.DocWriteResponse;
+import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -31,8 +34,7 @@ public class IndexService {
 	private final ObjectMapper objectMapper;
 	
     private static Integer id= 1;
-	 
-	@Autowired
+
 	public IndexService(RestHighLevelClient client, ObjectMapper objectMapper) {
 	    this.client = client;
 	    this.objectMapper = objectMapper;
@@ -49,8 +51,27 @@ public class IndexService {
 		Object movieListObj = new JSONParser().parse(getStringFromFile(Constants.FILE_NAME));
 		JSONArray movieList = (JSONArray) movieListObj;       
         BulkRequest request = createBulkRequest(movieList);
-        BulkResponse bulkresp=client.bulk(request, RequestOptions.DEFAULT);
-        return bulkresp.status().toString();
+        BulkResponse bulkResponse =client.bulk(request, RequestOptions.DEFAULT);
+        String bulkResponseStatus = bulkResponse.status().toString();
+		if (bulkResponse.hasFailures()) {
+			System.out.println("Some of the bulk operations had failures");
+		}
+		for (BulkItemResponse bulkItemResponse : bulkResponse) {
+			DocWriteResponse itemResponse = bulkItemResponse.getResponse();
+			switch (bulkItemResponse.getOpType()) {
+				case INDEX:
+				case CREATE:
+					IndexResponse indexResponse = (IndexResponse) itemResponse;
+					System.out.println("index resp "+ indexResponse.getResult().toString());
+					break;
+				case UPDATE:
+					UpdateResponse updateResponse = (UpdateResponse) itemResponse;
+					break;
+				case DELETE:
+					DeleteResponse deleteResponse = (DeleteResponse) itemResponse;
+			}
+		}
+        return bulkResponseStatus;
     }
 
 	private BulkRequest createBulkRequest(JSONArray movieList) {
