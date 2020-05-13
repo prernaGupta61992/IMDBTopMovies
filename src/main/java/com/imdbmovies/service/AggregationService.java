@@ -1,9 +1,8 @@
 package com.imdbmovies.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.imdbmovies.request.AggregationRequestParams;
+import com.imdbmovies.response.AggregationResponse;
+import com.imdbmovies.utils.Constants;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -18,17 +17,20 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.imdbmovies.document.TestDocument;
-import com.imdbmovies.request.AggregationRequestParams;
-import com.imdbmovies.response.AggregationResponse;
-import com.imdbmovies.utils.Constants;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AggregationService {
-	
+	private final RestHighLevelClient client;
+
 	@Autowired
-	private RestHighLevelClient client;
-	
+	public AggregationService(RestHighLevelClient restHighLevelClient) {
+		this.client = restHighLevelClient;
+	}
+
 	public AggregationResponse getGenresAggregatedData(AggregationRequestParams params) throws Exception {
 		SearchRequest searchRequest = new SearchRequest(Constants.INDEX);
 		
@@ -54,6 +56,7 @@ public class AggregationService {
 		
 		
 	}
+
  	private SearchSourceBuilder constructScriptedQuery(SearchSourceBuilder searchSourceBuilder) {
  		ScriptedMetricAggregationBuilder aggregation = AggregationBuilders
  			    .scriptedMetric("merged_actors")

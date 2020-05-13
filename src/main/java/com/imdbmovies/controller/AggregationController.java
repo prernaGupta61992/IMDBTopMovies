@@ -21,15 +21,13 @@ public class AggregationController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/movie/aggregate/genres")
 	public ResponseEntity getGenresAggregatedData(@RequestBody AggregationRequestParams params) throws Exception {
-		return 
-	            new ResponseEntity(aggregationService.getGenresAggregatedData(params), HttpStatus.OK);
+		return new ResponseEntity(aggregationService.getGenresAggregatedData(params), HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/movie/aggregate/actors")
 	public ResponseEntity getActorsAggregatedData() throws Exception {
-		return 
-	            new ResponseEntity(aggregationService.getActorsAggregatedData(), HttpStatus.OK);
+		return new ResponseEntity(aggregationService.getActorsAggregatedData(), HttpStatus.OK);
 	}
 
 }

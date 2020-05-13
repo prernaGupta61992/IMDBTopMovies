@@ -14,8 +14,7 @@ import com.imdbmovies.service.IndexService;
 
 @Controller
 public class IndexController {
-	
-	
+
 	private IndexService service;
 	
 	@Autowired
