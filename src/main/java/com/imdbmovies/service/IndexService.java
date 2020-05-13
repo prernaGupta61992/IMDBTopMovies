@@ -18,7 +18,11 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Service
@@ -42,7 +46,7 @@ public class IndexService {
     }
 	
 	public String createBulkMovieDocuments() throws Exception {
-		Object movieListObj = new JSONParser().parse(new FileReader(Constants.FILE_NAME)); 
+		Object movieListObj = new JSONParser().parse(getStringFromFile(Constants.FILE_NAME));
 		JSONArray movieList = (JSONArray) movieListObj;       
         BulkRequest request = createBulkRequest(movieList);
         BulkResponse bulkresp=client.bulk(request, RequestOptions.DEFAULT);
@@ -67,5 +71,23 @@ public class IndexService {
         IndexRequest indexRequest = new IndexRequest("test")
                 .source(documentMapper);
         request.add(indexRequest);
+	}
+
+	/**
+	 * Get JSON from file in a JSON tree format.
+	 *
+	 * @param fileName file which needs to be read into JSON.
+	 * @return
+	 */
+	private String getStringFromFile(String fileName) throws IOException {
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		InputStream in = classLoader.getResourceAsStream(fileName);
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int length;
+		while ((length = in.read(buffer)) != -1) {
+			result.write(buffer, 0, length);
+		}
+		return result.toString(StandardCharsets.UTF_8.name());
 	}
 }
