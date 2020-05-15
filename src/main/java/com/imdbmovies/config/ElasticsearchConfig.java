@@ -10,11 +10,16 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 @Primary
 public class ElasticsearchConfig {
-    
+
+    /**
+     * Creates a Elasticsearch client from config
+     *
+     * @return Elasticsearch client
+     */
     @Bean(destroyMethod = "close")
     public RestHighLevelClient client() {
         RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9500, "http")));
+            RestClient.builder(new HttpHost("localhost", 9500, "http")));
         return client;
     }
 }

@@ -3,6 +3,10 @@ package com.imdbmovies.service;
 import com.imdbmovies.request.AggregationRequestParams;
 import com.imdbmovies.response.AggregationResponse;
 import com.imdbmovies.utils.Constants;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -15,11 +19,6 @@ import org.elasticsearch.search.aggregations.metrics.ParsedScriptedMetric;
 import org.elasticsearch.search.aggregations.metrics.ScriptedMetricAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class AggregationService {
@@ -57,13 +56,13 @@ public class AggregationService {
 
     private SearchSourceBuilder constructScriptedQuery(SearchSourceBuilder searchSourceBuilder) {
         ScriptedMetricAggregationBuilder aggregation = AggregationBuilders
-                .scriptedMetric("merged_actors")
-                .initScript(new Script("state.actors_map=[:]"))
-                .mapScript(new Script("def actor_keys = ['actor_1_name', 'actor_2_name', 'actor_3_name'];for (def key : actor_keys)"
-                        + "{def actor_name = doc[key + '.keyword'].value;if (state.actors_map.containsKey(actor_name)) {state.actors_map[actor_name] += 1;} "
-                        + "else {state.actors_map[actor_name] = 1;}}"))
-                .combineScript(new Script("return state"))
-                .reduceScript(new Script("return states"));
+            .scriptedMetric("merged_actors")
+            .initScript(new Script("state.actors_map=[:]"))
+            .mapScript(new Script("def actor_keys = ['actor_1_name', 'actor_2_name', 'actor_3_name'];for (def key : actor_keys)"
+                + "{def actor_name = doc[key + '.keyword'].value;if (state.actors_map.containsKey(actor_name)) {state.actors_map[actor_name] += 1;} "
+                + "else {state.actors_map[actor_name] = 1;}}"))
+            .combineScript(new Script("return state"))
+            .reduceScript(new Script("return states"));
         searchSourceBuilder.aggregation(aggregation);
         searchSourceBuilder.size(0);
         return searchSourceBuilder;

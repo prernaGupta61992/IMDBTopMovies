@@ -1,22 +1,22 @@
 package com.imdbmovies.request;
 
 public class AggregationRequestParams {
-	private String aggField;
-	private String aggName;
-	
-	public String getAggName() {
-		return aggName;
-	}
+    private String aggField;
+    private String aggName;
 
-	public void setAggName(String aggName) {
-		this.aggName = aggName;
-	}
+    public String getAggName() {
+        return aggName;
+    }
 
-	public String getAggField() {
-		return aggField;
-	}
+    public void setAggName(String aggName) {
+        this.aggName = aggName;
+    }
 
-	public void setAggField(String aggField) {
-		this.aggField = aggField;
-	}
+    public String getAggField() {
+        return aggField;
+    }
+
+    public void setAggField(String aggField) {
+        this.aggField = aggField;
+    }
 }
