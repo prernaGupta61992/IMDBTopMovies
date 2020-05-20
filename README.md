@@ -2,14 +2,8 @@
 
 1. Create a text file named ```Dockerfile```
 
-The content of file can look something like this:
+The code for this ```Dockerfile``` is provided [here](https://github.com/prernablr92/movie-search/blob/master/Dockerfile).
 
-```
-FROM openjdk:8
-EXPOSE 8080
-ADD target/spring-boot-docker.jar spring-boot-docker.jar
-ENTRYPOINT ["java","-jar","/spring-boot-docker.jar"]
-```
 
 2. Now, we need a Spring Boot ```.jar``` file. This file will be used to create the Docker image
 
