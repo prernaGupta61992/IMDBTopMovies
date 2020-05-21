@@ -9,7 +9,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!--jars-->
-		<es.client.version>7.7.0</es.client.version>
+		<es.client.version>7.6.0</es.client.version>
 		<!--plugin version-->
 		<maven.compiler.version>3.8.1</maven.compiler.version>
 		<maven.shade.version>3.2.3</maven.shade.version>
