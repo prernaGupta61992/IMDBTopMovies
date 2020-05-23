@@ -1,0 +1,12 @@
+{ "serviceName": "movie",
+    "loadBalancers": [
+        {
+            "loadBalancerName": "movie",
+            "containerName": "movie",
+            "containerPort": 8080
+        }
+    ],
+    "taskDefinition" : "movie:1",
+    "desiredCount" : 1,
+    "launchType" : "EC2"
+}

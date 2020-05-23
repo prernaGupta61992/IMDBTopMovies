@@ -1,0 +1,1 @@
+aws ecs create-service --cluster movie --service-name movie --task-definition movie:1 --desired-count 1 --launch-type EC2 --platform-version LATEST --load-balancers movie

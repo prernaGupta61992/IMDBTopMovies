@@ -295,6 +295,8 @@ Resources:
           Key: Description
           Value: "This instance is the part of the Auto Scaling group which was created through ECS Console"
           PropagateAtLaunch: 'true'
+      TargetGroupARNs:
+        - !Ref TargetGroup
   EcsSpotFleet:
     Condition: CreateWithSpot
     Type: AWS::EC2::SpotFleet
@@ -333,6 +335,35 @@ Resources:
                   VolumeType: !Ref EbsVolumeType
             UserData:
               Fn::Base64: !Ref UserData
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      IpAddressType: "ipv4"
+      Name: "movie"
+      Scheme: "internet-facing"
+      Type: "application"
+      Subnets:
+        - !Select [ 0, !Ref SubnetIds ]
+        - !Select [ 1, !Ref SubnetIds ]
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckIntervalSeconds: 30
+      HealthCheckPath: "/ping"
+      HealthCheckPort: "8080"
+      HealthCheckProtocol: "HTTP"
+      HealthCheckTimeoutSeconds: 10
+      HealthyThresholdCount: 3
+      Matcher:
+       HttpCode: "200"
+      Name: "movie"
+      Port: "8080"
+      Protocol: "HTTP"
+      TargetType: "instance"
+      UnhealthyThresholdCount: 3
+      VpcId: "vpc-79251d11"
 Outputs:
   EcsInstanceAsgName:
     Condition: CreateWithASG
