@@ -4,23 +4,23 @@ import lombok.Data;
 
 @Data
 public class ProductDocument {
-    private String ProductName;
-    private int count;
+  private String ProductName;
+  private int count;
 
-    public String getProductName() {
-        return ProductName;
-    }
+  public String getProductName() {
+    return ProductName;
+  }
 
-    public void setProductName(String productName) {
-        ProductName = productName;
-    }
+  public void setProductName(final String productName) {
+    ProductName = productName;
+  }
 
-    public int getCount() {
-        return count;
-    }
+  public int getCount() {
+    return count;
+  }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
+  public void setCount(final int count) {
+    this.count = count;
+  }
 
 }
