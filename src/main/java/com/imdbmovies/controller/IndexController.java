@@ -19,13 +19,15 @@ public class IndexController {
     private static final Logger log = LoggerFactory.getLogger(IndexController.class);
     private final IndexService indexService;
 
-    public IndexController(final IndexService service) {
+    public IndexController(final IndexService service)
+    {
         this.indexService = service;
     }
 
 
     @PostConstruct
-    public void init() {
+    public void init()
+    {
         try {
             indexService.createBulkMovieDocuments();
         } catch (final Exception e) {
@@ -35,7 +37,8 @@ public class IndexController {
 
     @PostMapping("/movie")
     public ResponseEntity createMovieDocument(
-            @RequestBody final MovieDocument document) throws Exception {
+            @RequestBody final MovieDocument document) throws Exception
+    {
         final ResponseEntity responseEntity = new ResponseEntity(indexService.createMovieDocuments(document), HttpStatus.CREATED);
         return responseEntity;
     }
