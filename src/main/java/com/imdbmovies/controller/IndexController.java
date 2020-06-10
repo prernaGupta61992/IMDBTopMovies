@@ -16,27 +16,27 @@ import com.imdbmovies.service.IndexService;
 @Controller
 public class IndexController {
 
-  private static final Logger log = LoggerFactory.getLogger(IndexController.class);
-  private final IndexService indexService;
+    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+    private final IndexService indexService;
 
-  public IndexController(final IndexService service) {
-    this.indexService = service;
-  }
-
-
-  @PostConstruct
-  public void init() {
-    try {
-      indexService.createBulkMovieDocuments();
-    } catch (final Exception e) {
-      log.error( " Error occured while creating indexing " +e.getMessage());
+    public IndexController(final IndexService service) {
+        this.indexService = service;
     }
-  }
 
-  @PostMapping("/movie")
-  public ResponseEntity createMovieDocument(
-      @RequestBody final MovieDocument document) throws Exception {
-    final ResponseEntity responseEntity = new ResponseEntity(indexService.createMovieDocuments(document), HttpStatus.CREATED);
-    return responseEntity;
-  }
+
+    @PostConstruct
+    public void init() {
+        try {
+            indexService.createBulkMovieDocuments();
+        } catch (final Exception e) {
+            log.error( " Error occured while creating indexing " +e.getMessage());
+        }
+    }
+
+    @PostMapping("/movie")
+    public ResponseEntity createMovieDocument(
+            @RequestBody final MovieDocument document) throws Exception {
+        final ResponseEntity responseEntity = new ResponseEntity(indexService.createMovieDocuments(document), HttpStatus.CREATED);
+        return responseEntity;
+    }
 }

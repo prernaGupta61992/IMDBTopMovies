@@ -12,23 +12,23 @@ import org.springframework.context.annotation.Primary;
 @Primary
 public class ElasticsearchConfig {
 
-  /**
-   * Creates a Elasticsearch client from config
-   *
-   * @return Elasticsearch client
-   */
+    /**
+     * Creates a Elasticsearch client from config
+     *
+     * @return Elasticsearch client
+     */
 
-  @Value("${elasticsearch.host}")
-  private String esHost;
+    @Value("${elasticsearch.host}")
+    private String esHost;
 
-  @Value("${elasticsearch.port}")
-  private String esPort;
+    @Value("${elasticsearch.port}")
+    private String esPort;
 
-  @Bean(destroyMethod = "close")
-  public RestHighLevelClient client() {
+    @Bean(destroyMethod = "close")
+    public RestHighLevelClient client() {
 
-    final RestHighLevelClient client = new RestHighLevelClient(
-        RestClient.builder(new HttpHost(esHost, Integer.parseInt(esPort), "http")));
-    return client;
-  }
+        final RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost(esHost, Integer.parseInt(esPort), "http")));
+        return client;
+    }
 }

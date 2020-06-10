@@ -14,16 +14,16 @@ import com.imdbmovies.service.SearchService;
 
 @Controller
 public class SearchController {
-  private final SearchService searchService;
+    private final SearchService searchService;
 
-  public SearchController(final SearchService service) {
-    this.searchService = service;
-  }
+    public SearchController(final SearchService service) {
+        this.searchService = service;
+    }
 
-  @CrossOrigin(origins = "http://localhost:3000")
-  @PostMapping("/movie/search")
-  public ResponseEntity searchDocuments(@RequestBody final SearchRequestParams document) throws IOException {
-    final ResponseEntity responseEntity = new ResponseEntity(searchService.fetchAutoCompletedMovies(document), HttpStatus.OK);
-    return responseEntity;
-  }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/movie/search")
+    public ResponseEntity searchDocuments(@RequestBody final SearchRequestParams document) throws IOException {
+        final ResponseEntity responseEntity = new ResponseEntity(searchService.fetchAutoCompletedMovies(document), HttpStatus.OK);
+        return responseEntity;
+    }
 }
