@@ -11,7 +11,7 @@ public class ProductDocument {
         return ProductName;
     }
 
-    public void setProductName(String productName) {
+    public void setProductName(final String productName) {
         ProductName = productName;
     }
 
@@ -19,7 +19,7 @@ public class ProductDocument {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(final int count) {
         this.count = count;
     }
 

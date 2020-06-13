@@ -1,7 +1,7 @@
 package com.imdbmovies.request;
 
 public class SearchRequestParams {
-    private String sortBy;
+    private String  sortBy;
     private String sortOrder;
     private String query;
     private int size;
@@ -12,7 +12,7 @@ public class SearchRequestParams {
         return searchType;
     }
 
-    public void setSearchType(String searchType) {
+    public void setSearchType(final String searchType) {
         this.searchType = searchType;
     }
 
@@ -20,7 +20,7 @@ public class SearchRequestParams {
         return search;
     }
 
-    public void setSearch(boolean search) {
+    public void setSearch(final boolean search) {
         this.search = search;
     }
 
@@ -28,7 +28,7 @@ public class SearchRequestParams {
         return query;
     }
 
-    public void setQuery(String query) {
+    public void setQuery(final String query) {
         this.query = query;
     }
 
@@ -36,7 +36,7 @@ public class SearchRequestParams {
         return sortOrder;
     }
 
-    public void setSortOrder(String sortOrder) {
+    public void setSortOrder(final String sortOrder) {
         this.sortOrder = sortOrder;
     }
 
@@ -44,7 +44,7 @@ public class SearchRequestParams {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(final int size) {
         this.size = size;
     }
 
@@ -52,7 +52,7 @@ public class SearchRequestParams {
         return sortBy;
     }
 
-    public void setSortBy(String sortBy) {
+    public void setSortBy(final String sortBy) {
         this.sortBy = sortBy;
     }
 }

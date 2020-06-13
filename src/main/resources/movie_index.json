@@ -1,196 +1,196 @@
 {
-  "settings": {
-    "max_ngram_diff": 30,
-    "analysis": {
-      "analyzer": {
-        "autocomplete": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "autocomplete-n-gram-filter"
-          ]
-        },
-        "agg-analyzer-count": {
-          "filter": [
-            "lowercase"
-          ],
-          "type": "custom",
-          "tokenizer": "whitespace"
-        }
-      },
-      "filter": {
-        "autocomplete-n-gram-filter": {
-          "type": "ngram",
-          "min_gram": "3",
-          "max_gram": "5"
-        }
+   "settings":{
+      "max_ngram_diff":30,
+      "analysis":{
+         "analyzer":{
+            "autocomplete":{
+               "type":"custom",
+               "tokenizer":"standard",
+               "filter":[
+                  "lowercase",
+                  "autocomplete-n-gram-filter"
+               ]
+            },
+            "agg-analyzer-count":{
+               "filter":[
+                  "lowercase"
+               ],
+               "type":"custom",
+               "tokenizer":"whitespace"
+            }
+         },
+         "filter":{
+            "autocomplete-n-gram-filter":{
+               "type":"ngram",
+               "min_gram":"3",
+               "max_gram":"5"
+            }
+         }
       }
-    }
-  },
-  "mappings": {
-    "properties": {
-      "actor_1_facebook_likes": {
-        "type": "long"
-      },
-      "actor_1_name": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "actor_2_facebook_likes": {
-        "type": "long"
-      },
-      "actor_2_name": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "actor_3_facebook_likes": {
-        "type": "long"
-      },
-      "actor_3_name": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "aspect_ratio": {
-        "type": "float"
-      },
-      "budget": {
-        "type": "long"
-      },
-      "cast_total_facebook_likes": {
-        "type": "long"
-      },
-      "color": {
-        "type": "text"
-      },
-      "content_rating": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "country": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "director_facebook_likes": {
-        "type": "long"
-      },
-      "director_name": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "duration": {
-        "type": "long"
-      },
-      "facenumber_in_poster": {
-        "type": "long"
-      },
-      "genres": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          },
-          "analyzed": {
-            "type": "text",
-            "analyzer": "agg-analyzer-count",
-            "fielddata": true,
-            "search_analyzer": "standard"
-          }
-        }
-      },
-      "gross": {
-        "type": "long"
-      },
-      "imdb_score": {
-        "type": "float"
-      },
-      "language": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "movie_facebook_likes": {
-        "type": "long"
-      },
-      "movie_imdb_link": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "movie_title": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          },
-          "autocomplete": {
-            "type": "text",
-            "analyzer": "autocomplete",
-            "search_analyzer": "standard"
-          }
-        }
-      },
-      "num_critic_for_reviews": {
-        "type": "long"
-      },
-      "num_user_for_reviews": {
-        "type": "long"
-      },
-      "num_voted_users": {
-        "type": "long"
-      },
-      "plot_keywords": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 256
-          }
-        }
-      },
-      "title_year": {
-        "type": "long"
+   },
+   "mappings":{
+      "properties":{
+         "actor_1_facebook_likes":{
+            "type":"long"
+         },
+         "actor_1_name":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "actor_2_facebook_likes":{
+            "type":"long"
+         },
+         "actor_2_name":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "actor_3_facebook_likes":{
+            "type":"long"
+         },
+         "actor_3_name":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "aspect_ratio":{
+            "type":"float"
+         },
+         "budget":{
+            "type":"long"
+         },
+         "cast_total_facebook_likes":{
+            "type":"long"
+         },
+         "color":{
+            "type":"text"
+         },
+         "content_rating":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "country":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "director_facebook_likes":{
+            "type":"long"
+         },
+         "director_name":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "duration":{
+            "type":"long"
+         },
+         "facenumber_in_poster":{
+            "type":"long"
+         },
+         "genres":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               },
+               "analyzed":{
+                  "type":"text",
+                  "analyzer":"agg-analyzer-count",
+                  "fielddata":true,
+                  "search_analyzer":"standard"
+               }
+            }
+         },
+         "gross":{
+            "type":"long"
+         },
+         "imdb_score":{
+            "type":"float"
+         },
+         "language":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "movie_facebook_likes":{
+            "type":"long"
+         },
+         "movie_imdb_link":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "movie_title":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               },
+               "autocomplete":{
+                  "type":"text",
+                  "analyzer":"autocomplete",
+                  "search_analyzer":"standard"
+               }
+            }
+         },
+         "num_critic_for_reviews":{
+            "type":"long"
+         },
+         "num_user_for_reviews":{
+            "type":"long"
+         },
+         "num_voted_users":{
+            "type":"long"
+         },
+         "plot_keywords":{
+            "type":"text",
+            "fields":{
+               "keyword":{
+                  "type":"keyword",
+                  "ignore_above":256
+               }
+            }
+         },
+         "title_year":{
+            "type":"long"
+         }
       }
-    }
-  }
+   }
 }

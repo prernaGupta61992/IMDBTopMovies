@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AggregationResponse {
-    private List<Map<String, String>> aggResult;
+    private final List<Map<String, String>> aggResult;
 
-    public AggregationResponse(List<Map<String, String>> aggResult) {
+    public AggregationResponse(final List<Map<String, String>> aggResult) {
         this.aggResult = aggResult;
     }
 

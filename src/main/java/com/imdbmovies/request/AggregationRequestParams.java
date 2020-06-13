@@ -8,7 +8,7 @@ public class AggregationRequestParams {
         return aggName;
     }
 
-    public void setAggName(String aggName) {
+    public void setAggName(final String aggName) {
         this.aggName = aggName;
     }
 
@@ -16,7 +16,7 @@ public class AggregationRequestParams {
         return aggField;
     }
 
-    public void setAggField(String aggField) {
+    public void setAggField(final String aggField) {
         this.aggField = aggField;
     }
 }
